@@ -29,6 +29,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        this.startDefaultFragment();
+    }
+
+    private void startDefaultFragment() {
+        Fragment fragment = null;
+        Class fragmentClass = AllInvitedFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment).commit();
     }
 
     @Override
@@ -75,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_all_guests) {
             fragemntClass = AllInvitedFragment.class;
         } else if (id == R.id.nav_present) {
-
+            fragemntClass = PresentFragment.class;
         } else if (id == R.id.nav_absent) {
-
+            fragemntClass = AbsentFragment.class;
         }
 
         try {
@@ -90,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
