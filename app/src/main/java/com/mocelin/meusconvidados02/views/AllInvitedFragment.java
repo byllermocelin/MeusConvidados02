@@ -1,10 +1,12 @@
-package com.mocelin.meusconvidados02;
+package com.mocelin.meusconvidados02.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mocelin.meusconvidados02.R;
 
 
 public class AllInvitedFragment extends Fragment {

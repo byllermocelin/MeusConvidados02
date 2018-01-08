@@ -1,7 +1,9 @@
-package com.mocelin.meusconvidados02;
+package com.mocelin.meusconvidados02.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.mocelin.meusconvidados02.R;
 
 public class GuestFormActivity extends AppCompatActivity {
 
