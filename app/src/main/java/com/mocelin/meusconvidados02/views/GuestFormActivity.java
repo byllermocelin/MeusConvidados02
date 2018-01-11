@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.mocelin.meusconvidados02.R;
 import com.mocelin.meusconvidados02.business.GuestBusiness;
@@ -47,6 +48,11 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
 
     private void handleSave() {
+
+        if(!this.validateSave()){
+            return;
+        }
+
         GuestEntity guestEntity = new GuestEntity();
         guestEntity.setName(this.mViewHolder.mEditName.getText().toString());
 
@@ -60,6 +66,19 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
         //salva entidade convidado
         this.mGuestBusiness.insert(guestEntity);
+
+        finish();
+    }
+
+    private boolean validateSave() {
+
+        if (this.mViewHolder.mEditName.getText().toString().equals("")){
+            Toast.makeText(this, "O nome é obrigatório", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     private static class ViewHolder {
