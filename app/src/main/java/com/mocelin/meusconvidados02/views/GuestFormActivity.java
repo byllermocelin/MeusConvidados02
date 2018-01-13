@@ -65,7 +65,11 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         }
 
         //salva entidade convidado
-        this.mGuestBusiness.insert(guestEntity);
+        if (this.mGuestBusiness.insert(guestEntity)) {
+            Toast.makeText(this, "Convidado salvo", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Ocorreu um erro", Toast.LENGTH_SHORT).show();
+        }
 
         finish();
     }
@@ -73,10 +77,8 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
     private boolean validateSave() {
 
         if (this.mViewHolder.mEditName.getText().toString().equals("")){
-            Toast.makeText(this, "O nome é obrigatório", Toast.LENGTH_SHORT).show();
+            this.mViewHolder.mEditName.setError("o nome");
             return false;
-        }else{
-            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
