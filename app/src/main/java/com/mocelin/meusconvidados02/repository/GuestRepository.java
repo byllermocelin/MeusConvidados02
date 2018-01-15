@@ -31,24 +31,9 @@ public class GuestRepository {
         return INSTANCE;
     }
 
-    public Boolean insert(GuestEntity guestEntity) {
-        try {
-
-            SQLiteDatabase sqLiteDatabase = this.mGuestDataBaseHelper.getWritableDatabase();
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
-            contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
-
-            sqLiteDatabase.insert(DataBaseConstants.GUEST.TABLE_NAME, null, contentValues);
-
-            return true;
-
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+    /**
+     * Carrega todos os convidados
+     */
     public List<GuestEntity> getGuestsByQuery(String query) {
         List<GuestEntity> list = new ArrayList<>();
 
@@ -77,5 +62,24 @@ public class GuestRepository {
         }
 
         return list;
+    }
+
+    public Boolean insert(GuestEntity guestEntity) {
+        try {
+
+            // Para fazer escrita de dados
+            SQLiteDatabase db = this.mGuestDataBaseHelper.getWritableDatabase();
+
+            ContentValues insertValues = new ContentValues();
+            insertValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guestEntity.getName());
+            insertValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guestEntity.getConfirmed());
+            db.insert(DataBaseConstants.GUEST.TABLE_NAME, null, insertValues);
+
+            // Registro inserido
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

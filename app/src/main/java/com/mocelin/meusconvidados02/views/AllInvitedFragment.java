@@ -51,6 +51,7 @@ public class AllInvitedFragment extends Fragment {
         return view;
     }
 
+
     private static class ViewHolder {
         private RecyclerView mRecyclerAllInvited;
     }
