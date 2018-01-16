@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.setListeners();
 
-        this.startDefaultFragment();
+
     }
 
     private void setListeners() {
@@ -136,6 +136,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent guestFormIntent = new Intent(this, GuestFormActivity.class);
             this.startActivity(guestFormIntent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.startDefaultFragment();
     }
 
     private static class ViewHolder {

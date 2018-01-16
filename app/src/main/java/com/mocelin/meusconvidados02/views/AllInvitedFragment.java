@@ -11,11 +11,17 @@ import android.view.ViewGroup;
 
 import com.mocelin.meusconvidados02.R;
 import com.mocelin.meusconvidados02.adapter.GuestListAdapter;
+import com.mocelin.meusconvidados02.business.GuestBusiness;
+import com.mocelin.meusconvidados02.entities.GuestEntity;
+
+import java.util.List;
 
 
 public class AllInvitedFragment extends Fragment {
 
+
     private ViewHolder mViewHolder = new ViewHolder();
+    private GuestBusiness mGuestBusiness;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,20 +35,25 @@ public class AllInvitedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_invited, container, false);
         Context context = view.getContext();
 
-        // Obter a recyclerView
+        // Obter recyclerView
         this.mViewHolder.mRecyclerAllInvited = view.findViewById(R.id.recycler_all_invited);
 
-        // Definir um adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter();
+        this.mGuestBusiness = new GuestBusiness(context);
+        List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
+
+        // Definir adapter
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList);
         this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
 
-        // Definir um layout
+        //Definir layout
         this.mViewHolder.mRecyclerAllInvited.setLayoutManager(new LinearLayoutManager(context));
+
 
         return view;
     }
 
-    private class ViewHolder {
+
+    private static class ViewHolder {
         private RecyclerView mRecyclerAllInvited;
     }
 

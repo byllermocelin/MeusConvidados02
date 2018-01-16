@@ -15,6 +15,7 @@ import com.mocelin.meusconvidados02.entities.GuestEntity;
 
 public class GuestFormActivity extends AppCompatActivity implements View.OnClickListener {
 
+
     private ViewHolder mViewHolder = new ViewHolder();
     private GuestBusiness mGuestBusiness;
 
@@ -49,10 +50,9 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
     private void handleSave() {
 
-        if (!validateSave()) {
+        if (!this.validateSave()) {
             return;
         }
-
 
         GuestEntity guestEntity = new GuestEntity();
         guestEntity.setName(this.mViewHolder.mEditName.getText().toString());
@@ -67,9 +67,9 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
 
         //salva entidade convidado
         if (this.mGuestBusiness.insert(guestEntity)) {
-            Toast.makeText(this, "Convidado salvo com sucesso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Convidado salvo", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Algo de errado aconteceu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ocorreu um erro", Toast.LENGTH_SHORT).show();
         }
 
         finish();
@@ -78,7 +78,7 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
     private boolean validateSave() {
 
         if (this.mViewHolder.mEditName.getText().toString().equals("")) {
-            this.mViewHolder.mEditName.setError("Nome é obrigatório");
+            this.mViewHolder.mEditName.setError("o nome");
             return false;
         }
         return true;
@@ -91,5 +91,4 @@ public class GuestFormActivity extends AppCompatActivity implements View.OnClick
         private RadioButton mRadioAbsent;
         private Button mButtonSave;
     }
-
 }
