@@ -1,6 +1,7 @@
 package com.mocelin.meusconvidados02.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 import com.mocelin.meusconvidados02.R;
 import com.mocelin.meusconvidados02.adapter.GuestListAdapter;
 import com.mocelin.meusconvidados02.business.GuestBusiness;
+import com.mocelin.meusconvidados02.constants.GuestConstants;
 import com.mocelin.meusconvidados02.entities.GuestEntity;
+import com.mocelin.meusconvidados02.listener.OnGuestListenerInteractionListener;
 
 import java.util.List;
 
@@ -39,10 +42,30 @@ public class AllInvitedFragment extends Fragment {
         this.mViewHolder.mRecyclerAllInvited = view.findViewById(R.id.recycler_all_invited);
 
         this.mGuestBusiness = new GuestBusiness(context);
+
+        OnGuestListenerInteractionListener listener = new OnGuestListenerInteractionListener() {
+            @Override
+            public void onListClick(int id) {
+                // abrir activity formulário
+                Bundle bundle = new Bundle();
+                bundle.putInt(GuestConstants.GUEST_ID, id);
+
+                Intent intent = new Intent(getContext(), GuestFormActivity.class);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(int id) {
+
+            }
+        };
+
         List<GuestEntity> guestEntityList = this.mGuestBusiness.getInvited();
 
         // Definir adapter
-        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList);
+        GuestListAdapter guestListAdapter = new GuestListAdapter(guestEntityList, listener);
         this.mViewHolder.mRecyclerAllInvited.setAdapter(guestListAdapter);
 
         //Definir layout
