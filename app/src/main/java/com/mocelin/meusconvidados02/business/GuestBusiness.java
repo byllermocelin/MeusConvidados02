@@ -3,6 +3,7 @@ package com.mocelin.meusconvidados02.business;
 import android.content.Context;
 
 import com.mocelin.meusconvidados02.constants.DataBaseConstants;
+import com.mocelin.meusconvidados02.constants.GuestConstants;
 import com.mocelin.meusconvidados02.entities.GuestEntity;
 import com.mocelin.meusconvidados02.repository.GuestRepository;
 
@@ -29,7 +30,19 @@ public class GuestBusiness {
         return this.mGuestRepository.getGuestsByQuery("select * from " + DataBaseConstants.GUEST.TABLE_NAME);
     }
 
+    public List<GuestEntity> getPresent() {
+        return this.mGuestRepository.getGuestsByQuery("select * from " + DataBaseConstants.GUEST.TABLE_NAME
+                + " where " + DataBaseConstants.GUEST.COLUMNS.PRESENCE + " = " + GuestConstants.CONFIRMATION.PRESENT);
+    }
+
+    public List<GuestEntity> getAbsent() {
+        return this.mGuestRepository.getGuestsByQuery("select * from " + DataBaseConstants.GUEST.TABLE_NAME
+                + " where " + DataBaseConstants.GUEST.COLUMNS.PRESENCE + " = " + GuestConstants.CONFIRMATION.ABSENT);
+    }
+
     public GuestEntity load(int mGuestId) {
         return this.mGuestRepository.load(mGuestId);
     }
+
+
 }
